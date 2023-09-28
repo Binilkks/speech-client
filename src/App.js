@@ -23,17 +23,6 @@ function App() {
     loadBridge();
   },[]);
 
-  useEffect(() => {
-    if(window.bridge) {
-      console.log('window.bridge is defined');
-      window.bridge.on('mySampleEvent', (eventData) => {
-        console.log('EventData', eventData);
-      })
-    } else {
-      console.log('window.bridge is undefined');
-    }
-  })
-
   const loadBridge = () => {
     console.log('loadBridge function called');
     const bridgeNode = document.createElement('script');
@@ -42,6 +31,7 @@ function App() {
     bridgeNode.src = 'https://localhost:20180/public/bridge.js';
     bridgeNode.addEventListener('load', () => {
       console.log('Web socket connection is established');
+      subsribeEvents();
     });
     bridgeNode.addEventListener('error', () => {
       console.log('Web socket connection is failed');
@@ -50,7 +40,18 @@ function App() {
     });
     document.head.appendChild(bridgeNode);
   }
-  console.log('post', post);
+
+  const subsribeEvents = () => {
+    if(window.bridge) {
+      console.log('window.bridge is defined');
+      window.bridge.on('mySampleEvent', (eventData) => {
+        console.log('EventData', eventData);
+      })
+    } else {
+      console.log('window.bridge is undefined');
+    }
+  }
+
   return (
     <div className="App">
       <header className="App-header">
