@@ -24,16 +24,16 @@ function App() {
   },[]);
 
    const initBridge = () => {
-            bridge.onConnect = function () { log("Ready"); };
-            bridge.on('bridge_client_disconnect', function(clientName) { log("Peer disconnected: " + clientName) });
-            bridge.on('bridge_client_connect', function(clientName){ log("Peer connected: " + clientName)});
+            window.bridge.onConnect = function () { console.log("Ready"); };
+            window.bridge.on('bridge_client_disconnect', function(clientName) { console.log("Peer disconnected: " + clientName) });
+            window.bridge.on('bridge_client_connect', function(clientName){ console.log("Peer connected: " + clientName)});
             applyEventListener();
    }
 const onEvent = (event) => {
-            log("Event Data: " + JSON.stringify(event));
+            console.log("Event Data: " + JSON.stringify(event));
         }
   const applyEventListener = () => {
-            bridge.on('mySampleEvent', onEvent);
+            window.bridge.on('mySampleEvent', onEvent);
         }
   
   const loadBridge = () => {
