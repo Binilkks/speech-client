@@ -20,7 +20,25 @@ function App() {
     .then((response) => {
       setPost(response.data);
     });
+    loadBridge();
   },[]);
+
+  const loadBridge = () => {
+    console.log('loadBridge function called');
+    const bridgeNode = document.createElement('script');
+    bridgeNode.type = 'text/javascript';
+    bridgeNode.async = true;
+    bridgeNode.src = 'https://localhost:20180/public/bridge.js';
+    bridgeNode.addEventListener('load', () => {
+      console.log('Web socket connection is established');
+    });
+    bridgeNode.addEventListener('error', () => {
+      console.log('Web socket connection is failed');
+      setTimeout(loadBridge, 10000);
+      document.head.removeChild(bridgeNode);
+    });
+    document.head.appendChild(bridgeNode);
+  }
   console.log('post', post);
   return (
     <div className="App">
