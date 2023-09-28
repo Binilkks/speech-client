@@ -23,6 +23,17 @@ function App() {
     loadBridge();
   },[]);
 
+  useEffect(() => {
+    if(window.bridge) {
+      console.log('window.bridge is defined');
+      window.bridge.on('mySampleEvent', (eventData) => {
+        console.log('EventData', eventData);
+      })
+    } else {
+      console.log('window.bridge is undefined');
+    }
+  })
+
   const loadBridge = () => {
     console.log('loadBridge function called');
     const bridgeNode = document.createElement('script');
