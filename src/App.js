@@ -8,6 +8,7 @@ function App() {
   const [post, setPost] = useState(null);
 
   useEffect(() => {
+    initBridge();
     axios
     .post(baseURL, {
         callerId: "1234",
@@ -20,7 +21,6 @@ function App() {
     .then((response) => {
       setPost(response.data);
     });
-    loadBridge();
   },[]);
 
    const initBridge = () => {
