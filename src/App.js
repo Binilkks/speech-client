@@ -29,8 +29,10 @@ function App() {
             bridge.on('bridge_client_connect', function(clientName){ log("Peer connected: " + clientName)});
             applyEventListener();
    }
-
-  function applyEventListener() {
+const onEvent = (event) => {
+            log("Event Data: " + JSON.stringify(event));
+        }
+  const applyEventListener = () => {
             bridge.on('mySampleEvent', onEvent);
         }
   
