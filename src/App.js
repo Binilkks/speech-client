@@ -8,7 +8,7 @@ function App() {
   const [post, setPost] = useState(null);
 
   useEffect(() => {
-    initBridge();
+    addDesktopBridge();
     axios
     .post(baseURL, {
         callerId: "1234",
@@ -23,37 +23,35 @@ function App() {
     });
   },[]);
 
-   const initBridge = () => {
-            window.bridge.onConnect = function () { console.log("Ready"); };
-            window.bridge.on('bridge_client_disconnect', function(clientName) { console.log("Peer disconnected: " + clientName) });
-            window.bridge.on('bridge_client_connect', function(clientName){ console.log("Peer connected: " + clientName)});
-            applyEventListener();
-   }
-const onEvent = (event) => {
-            console.log("Event Data: " + JSON.stringify(event));
-        }
-  const applyEventListener = () => {
-            window.bridge.on('mySampleEvent', onEvent);
-        }
-  
-  const loadBridge = () => {
-    console.log('loadBridge function called');
+   const addDesktopBridge = () => {
     const bridgeNode = document.createElement('script');
+    bridgeNode.src = 'https://localhost:20180/public/bridge.js';
     bridgeNode.type = 'text/javascript';
     bridgeNode.async = true;
-    bridgeNode.src = 'https://localhost:20180/public/bridge.js';
     bridgeNode.addEventListener('load', () => {
-      console.log('Web socket connection is established');
-      subsribeEvents();
+      if (!window.bridge) {
+        console.log('window.bridge is undefined. Something went wrong');
+        return;
+      }
+      if (window.bridge.connected) {
+        console.log('window.bridge connected');
+        subsribeEvents();
+      }
+      window.bridge.onConnect = () => {
+        console.log('window.bridge onConnect');
+        subsribeEvents();
+      };
+      window.bridge.onDisconnect = () => {
+        console.log('window.bridge onDisconnect');
+      };
     });
     bridgeNode.addEventListener('error', () => {
-      console.log('Web socket connection is failed');
-      setTimeout(loadBridge, 10000);
+      setTimeout(addDesktopBridge, 10000);
       document.head.removeChild(bridgeNode);
     });
     document.head.appendChild(bridgeNode);
-  }
-
+  };
+  
   const subsribeEvents = () => {
     if(window.bridge) {
       console.log('window.bridge is defined');
