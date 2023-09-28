@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import logo from './logo.svg';
 import './App.css';
@@ -23,6 +23,17 @@ function App() {
     loadBridge();
   },[]);
 
+   const initBridge = () => {
+            bridge.onConnect = function () { log("Ready"); };
+            bridge.on('bridge_client_disconnect', function(clientName) { log("Peer disconnected: " + clientName) });
+            bridge.on('bridge_client_connect', function(clientName){ log("Peer connected: " + clientName)});
+            applyEventListener();
+   }
+
+  function applyEventListener() {
+            bridge.on('mySampleEvent', onEvent);
+        }
+  
   const loadBridge = () => {
     console.log('loadBridge function called');
     const bridgeNode = document.createElement('script');
