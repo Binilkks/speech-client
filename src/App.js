@@ -24,6 +24,8 @@ function App() {
   },[]);
 
    const addDesktopBridge = () => {
+    window.Bridge_CurrentADSID = 'test';
+    window.Bridge_ClientName = 'testClient';
     const bridgeNode = document.createElement('script');
     bridgeNode.src = 'https://localhost:20180/public/bridge.js';
     bridgeNode.type = 'text/javascript';
