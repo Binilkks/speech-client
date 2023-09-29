@@ -54,7 +54,7 @@ function App() {
         content: [...eventData]
     })
     .then((response) => {
-      bridge.notify('mySampleEventDone', response.data);
+      window.bridge.notify('mySampleEventDone', response.data);
     });
       })
     } else {
