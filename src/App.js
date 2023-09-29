@@ -14,8 +14,19 @@ function App() {
         callerId: "1234",
         offerId: "SG1234",
         content: [
-            "Annual Percentage Rate (APR) for Pay Over Time Features",
-            "21.24% to 29.24%, based on your creditworthiness and other factors as determined at the time of account opening"
+            "Platinum Card from American Express",
+            "The annual fee is 695 dollars.",
+          "The Platinum Card automatically earns 1 Membership Rewards point per eligible dollar spent",
+          "You can also earn the following rewards",
+          "5 Membership Rewards points per dollar on up to 500,000 dollars per calendar year on flights when you book directly with airlines or through American Express Travel",
+          "Flights purchased from online travel booking sites, vacation packages and charter flights earn 1 point per dollar",
+          "5 Membership Rewards points per dollar on eligible prepaid hotel purchases and prepaid flight + hotel packages booked through American Express Travel, including Fine Hotels & Resorts and The Hotel Collection.",
+          "You can earn 100,000 Membership Rewards points after you make eligible purchases totaling 6,000 dollars or more on the Card in the first 6 months starting from the date your account is upgraded",
+          "You will receive a new Platinum Card, which will replace your current Card. Your account number will stay the same",
+          "If you paid an annual fee for your current Card, you will receive a prorated refund for that fee",
+          "The additional Fees, Limits, and Pay over time features will work like they do on your current card",
+          "Do you have any questions?",
+          "Do you want to upgrade to the Platinum Card from American Express?"
         ]
     })
     .then((response) => {
